@@ -6,10 +6,8 @@ export const LABELS = Object.freeze({
   dnd: "Do not disturb",
   offline: "Offline",
 });
-const record = (value) =>
-  value !== null && typeof value === "object" && !Array.isArray(value);
-const text = (value) =>
-  typeof value === "string" ? value.trim().slice(0, 500) : "";
+const record = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+const text = (value) => (typeof value === "string" ? value.trim().slice(0, 500) : "");
 
 // Only Spotify's image CDN is accepted; activity strings are rendered as text.
 function albumArt(value) {
@@ -37,18 +35,12 @@ export function parsePresence(payload) {
   ) {
     throw new Error("Invalid presence identity or status");
   }
-  if (
-    !Array.isArray(data.activities) ||
-    typeof data.listening_to_spotify !== "boolean"
-  )
+  if (!Array.isArray(data.activities) || typeof data.listening_to_spotify !== "boolean")
     throw new Error("Invalid activities");
   const activities = data.activities.filter(record);
   const custom = activities.find((item) => item.type === 4);
   const application = activities.find(
-    (item) =>
-      [0, 1, 2, 3, 5].includes(item.type) &&
-      item.name !== "Spotify" &&
-      text(item.name),
+    (item) => [0, 1, 2, 3, 5].includes(item.type) && item.name !== "Spotify" && text(item.name),
   );
   let spotify = null;
   if (data.listening_to_spotify) {
@@ -96,10 +88,7 @@ export function parsePresence(payload) {
 
 export function trackPosition(song, now) {
   const duration = Math.floor((song.end - song.start) / 1000);
-  const elapsed = Math.max(
-    0,
-    Math.min(duration, Math.floor((now - song.start) / 1000)),
-  );
+  const elapsed = Math.max(0, Math.min(duration, Math.floor((now - song.start) / 1000)));
   return { duration, elapsed, expired: now > song.end + 10000 };
 }
 

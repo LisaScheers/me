@@ -9,16 +9,14 @@ From the repository root, with [Nix](https://nixos.org/download/) and
 
 ```sh
 devenv shell
-pnpm --dir frontend install --frozen-lockfile
-pnpm --dir frontend dev
+pnpm install --frozen-lockfile
+devenv up
 ```
 
-Open http://127.0.0.1:8789. To enable the view counter, open another development
-shell and run:
-
-```sh
-cargo run --locked -p me-backend
-```
+Open http://127.0.0.1:8789. This starts the website and view counter together.
+Press Ctrl+C to stop both. To run just one server, use `devenv up frontend`
+or `devenv up backend`. Use `devenv up --detach` to run in the background
+and `devenv down` to stop background servers.
 
 The counter uses port 8790 and saves local counts in `.data/views.sqlite3`.
 Stop any existing preview using these ports first.
@@ -29,14 +27,19 @@ rust-analyzer can find the Rust toolchain.
 
 ## Test and build
 
-Inside the development shell:
+Inside the development shell, run `treefmt` to format the project. To check formatting
+and run tests:
 
 ```sh
-cargo fmt --all --check
+treefmt --fail-on-change
+pnpm lint
 cargo test --locked --workspace
-pnpm --dir frontend test
-pnpm --dir frontend build
+pnpm test
+pnpm build
 ```
+
+`pnpm fmt` runs Oxfmt; `pnpm fmt:check` checks its formatting.
+`treefmt` also formats Astro, Nix, Rust, TOML, and shell files.
 
 The website is built into `frontend/dist/`. To build with Nix:
 
@@ -54,8 +57,7 @@ Add a link inside `.site-buttons` in
 
 ```html
 <a href="https://example.com/" title="Your name">
-  <img src="/personal-site/buttons/your-name.png"
-    alt="Your name" width="88" height="31" />
+  <img src="/personal-site/buttons/your-name.png" alt="Your name" width="88" height="31" />
 </a>
 ```
 

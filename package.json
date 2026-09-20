@@ -1,0 +1,20 @@
+{
+  "name": "me",
+  "private": true,
+  "packageManager": "pnpm@10.34.5",
+  "scripts": {
+    "dev": "pnpm --filter lisa-me dev",
+    "build": "pnpm --filter lisa-me build",
+    "preview": "pnpm --filter lisa-me preview",
+    "test": "pnpm --filter lisa-me test",
+    "lint": "oxlint --deny-warnings frontend/src frontend/tests frontend/astro.config.mjs",
+    "fmt": "oxfmt .",
+    "fmt:check": "oxfmt --check ."
+  },
+  "devDependencies": {
+    "oxfmt": "^0.68.0",
+    "oxlint": "^1.83.0",
+    "prettier": "^3.9.8",
+    "prettier-plugin-astro": "^1.0.1"
+  }
+}

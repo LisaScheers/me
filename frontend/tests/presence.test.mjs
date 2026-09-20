@@ -1,11 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import {
-  USER_ID,
-  parsePresence,
-  trackPosition,
-  formatTime,
-} from "../src/scripts/presence.mjs";
+import { USER_ID, parsePresence, trackPosition, formatTime } from "../src/scripts/presence.mjs";
 const response = (overrides) => ({
   success: true,
   data: {
@@ -80,10 +75,7 @@ test("Spotify links and artwork use constrained destinations", () => {
     }),
   );
   assert.equal(parsed.spotify.art, null);
-  assert.equal(
-    parsed.spotify.url,
-    "https://open.spotify.com/track/0123456789abcdefghijkl",
-  );
+  assert.equal(parsed.spotify.url, "https://open.spotify.com/track/0123456789abcdefghijkl");
   assert.throws(() =>
     parsePresence(
       response({
@@ -102,9 +94,7 @@ test("Spotify links and artwork use constrained destinations", () => {
   );
 });
 test("progress clamps clock drift and expires old tracks", () => {
-  const parsed = parsePresence(
-    response({ listening_to_spotify: true, spotify: song }),
-  ).spotify;
+  const parsed = parsePresence(response({ listening_to_spotify: true, spotify: song })).spotify;
   assert.equal(trackPosition(parsed, 90000).elapsed, 0);
   assert.deepEqual(trackPosition(parsed, 291000), {
     elapsed: 180,

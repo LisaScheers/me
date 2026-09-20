@@ -10,14 +10,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lisa-personal-site";
   version = "1.0.0";
   src = lib.fileset.toSource {
-    root = ./.;
-    fileset = lib.fileset.unions [./src ./public ./package.json ./pnpm-lock.yaml ./pnpm-workspace.yaml ./astro.config.mjs];
+    root = ../.;
+    fileset = lib.fileset.unions [../package.json ../pnpm-lock.yaml ../pnpm-workspace.yaml ./src ./public ./package.json ./astro.config.mjs];
   };
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-d5rVkC59NQvxn4JQdqhpYf2/bcfdDZ3AccQqSnGjo8c=";
+    hash = "sha256-P6xAcESy2zBclx4qJ+HBTHCp3oJc9P/+5dYw/xLE3mc=";
   };
   nativeBuildInputs = [nodejs pnpm_10 pnpmConfigHook];
   env.ASTRO_TELEMETRY_DISABLED = "1";
@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
   installPhase = ''
     mkdir -p "$out"
-    cp -r dist/. "$out/"
+    cp -r frontend/dist/. "$out/"
   '';
 })

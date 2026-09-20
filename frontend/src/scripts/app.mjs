@@ -1,10 +1,4 @@
-import {
-  ENDPOINT,
-  LABELS,
-  parsePresence,
-  trackPosition,
-  formatTime,
-} from "./presence.mjs";
+import { ENDPOINT, LABELS, parsePresence, trackPosition, formatTime } from "./presence.mjs";
 
 const byId = (id) => document.getElementById(id);
 const setText = (id, value) => {
@@ -16,21 +10,14 @@ let pending = null;
 let pollTimer;
 
 function renderMusic(song, unavailable = false) {
-  setText(
-    "music-state",
-    song ? "LISTENING" : unavailable ? "UNAVAILABLE" : "NOT PLAYING",
-  );
+  setText("music-state", song ? "LISTENING" : unavailable ? "UNAVAILABLE" : "NOT PLAYING");
   setText(
     "track-name",
-    song?.name ??
-      (unavailable ? "Listening status unavailable" : "Nothing playing"),
+    song?.name ?? (unavailable ? "Listening status unavailable" : "Nothing playing"),
   );
   setText(
     "track-artist",
-    song?.artist ??
-      (unavailable
-        ? "The presence feed is unavailable."
-        : "A little quiet for now."),
+    song?.artist ?? (unavailable ? "The presence feed is unavailable." : "A little quiet for now."),
   );
   setText("track-album", song?.album ?? "");
   byId("timeline").hidden = !song;
@@ -75,8 +62,7 @@ function render(data) {
   setText("activity-name", data.activity?.name ?? "No activity shared");
   setText(
     "activity-detail",
-    data.activity?.detail ||
-      (data.state === "offline" ? "See you around." : "Just hanging out."),
+    data.activity?.detail || (data.state === "offline" ? "See you around." : "Just hanging out."),
   );
   byId("custom-status").hidden = !data.custom;
   setText("custom-status", data.custom ? `Status: ${data.custom}` : "");
@@ -177,19 +163,13 @@ function setWindow(id, expanded) {
     projects: "projects",
     neighbours: "bookmarks",
   };
-  button.setAttribute(
-    "aria-label",
-    `${expanded ? "Minimise" : "Restore"} ${names[id]}`,
-  );
+  button.setAttribute("aria-label", `${expanded ? "Minimise" : "Restore"} ${names[id]}`);
   button.textContent = expanded ? "_" : "□";
 }
 document.querySelectorAll("[data-toggle]").forEach((button) => {
   button.hidden = false;
   button.addEventListener("click", () =>
-    setWindow(
-      button.dataset.toggle,
-      button.getAttribute("aria-expanded") !== "true",
-    ),
+    setWindow(button.dataset.toggle, button.getAttribute("aria-expanded") !== "true"),
   );
 });
 document.querySelectorAll("[data-open]").forEach((link) => {
@@ -197,8 +177,7 @@ document.querySelectorAll("[data-open]").forEach((link) => {
 });
 function revealHash() {
   const id = location.hash.slice(1);
-  if (["intro", "activity", "projects", "neighbours"].includes(id))
-    setWindow(id, true);
+  if (["intro", "activity", "projects", "neighbours"].includes(id)) setWindow(id, true);
 }
 window.addEventListener("hashchange", revealHash);
 revealHash();
