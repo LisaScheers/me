@@ -1,0 +1,10 @@
+{
+  "load_direnv": "direct",
+  "lsp": {
+    "rust-analyzer": {
+      "binary": {
+        "ignore_system_version": false
+      }
+    }
+  }
+}

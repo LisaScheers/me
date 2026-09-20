@@ -1,0 +1,11 @@
+__pycache__/
+result
+.DS_Store
+node_modules/
+dist/
+.astro/
+.data/
+/target/
+backend/target/
+.devenv/
+.direnv/

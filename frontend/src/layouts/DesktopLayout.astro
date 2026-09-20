@@ -1,0 +1,57 @@
+---
+import "../styles/style.css";
+import ViewCounter from "../components/ViewCounter.astro";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Lisa’s little corner of the internet. Code, systems, and a few good places to wander."
+    />
+    <meta name="theme-color" content="#382343" />
+    <title>Lisa’s desktop</title>
+    <link rel="icon" href="/personal-site/favicon.svg" type="image/svg+xml" />
+    <script src="../scripts/app.mjs"></script>
+  </head>
+  <body>
+    <a class="skip" href="#intro">Skip to content</a>
+    <div class="desktop">
+      <header class="desktop-header">
+        <span>lisa’s desktop</span><span>☾ make yourself at home</span>
+      </header>
+      <nav class="shortcuts" aria-label="Desktop shortcuts">
+        <a href="#intro" data-open="intro"
+          ><span class="icon monitor" aria-hidden="true"></span>About Lisa</a
+        >
+        <a href="#projects" data-open="projects"
+          ><span class="icon folder" aria-hidden="true"></span>Projects</a
+        >
+        <a href="#neighbours" data-open="neighbours"
+          ><span class="icon folder" aria-hidden="true"></span>Bookmarks</a
+        >
+      </nav>
+      <main class="windows">
+        <slot />
+      </main>
+      <footer class="desktop-footer">
+        by Lisa · <a href="https://github.com/LisaScheers/me">source</a> ·
+        <a href="https://github.com/Phineas/lanyard">presence via Lanyard</a>
+        <ViewCounter />
+      </footer>
+    </div>
+    <nav class="taskbar" aria-label="Open windows">
+      <a class="raised start" href="#intro" data-open="intro">✦ Start</a
+      ><a class="raised" href="#intro" data-open="intro">▤ hello.txt</a
+      ><a class="raised" href="#activity" data-open="activity">☷ Activity</a
+      ><a class="raised" href="#projects" data-open="projects">▧ Projects</a
+      ><a class="raised" href="#neighbours" data-open="neighbours">♡ Links</a
+      ><span class="presence tray" data-state="unknown"
+        ><span class="status-dot" aria-hidden="true"></span
+        ><span data-presence>Status unavailable</span></span
+      >
+    </nav>
+  </body>
+</html>

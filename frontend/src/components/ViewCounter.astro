@@ -1,0 +1,36 @@
+<span class="view-counter" title="Page loads · no cookies">
+  <span aria-hidden="true">◈</span> views
+  <span id="view-count" role="status" aria-label="View count loading">······</span>
+  <noscript>(requires JavaScript)</noscript>
+</span>
+<script>
+  const counter = document.getElementById("view-count");
+  async function countView() {
+    if (!counter) return;
+    try {
+      // One attempt per document load: retries could count the same view twice.
+      const response = await fetch("/api/views", {
+        method: "POST",
+        headers: { "X-Page-View": "1" },
+        credentials: "omit",
+        cache: "no-store",
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!response.ok) throw new Error("Counter unavailable");
+      const data = await response.json();
+      if (!Number.isSafeInteger(data.views) || data.views < 0) {
+        throw new Error("Invalid counter response");
+      }
+      counter.textContent = String(data.views).padStart(6, "0");
+      counter.setAttribute("aria-label", `${data.views} page views`);
+    } catch {
+      counter.textContent = "offline";
+      counter.setAttribute("aria-label", "View counter unavailable");
+    }
+  }
+  countView();
+</script>
+<style>
+  .view-counter { display: inline-flex; align-items: center; gap: 6px; margin-left: 12px; white-space: nowrap; }
+  #view-count { background: #1e1227; border: 1px inset #af99bc; color: #dec6ec; padding: 1px 5px; letter-spacing: 2px; font: 11px/1.4 "Courier New", monospace; }
+</style>
