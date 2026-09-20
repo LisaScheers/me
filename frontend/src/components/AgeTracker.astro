@@ -1,0 +1,67 @@
+<div class="age-tracker">
+  <button id="age-tracker" type="button" aria-describedby="age-hint" hidden>
+    i’m <span id="age-value"></span> <span id="age-unit">seconds</span> old
+  </button>
+  <small id="age-hint" hidden>
+    click to change timescale ↻
+  </small>
+  <noscript>born 9 October 1998, 09:35 (Belgium)</noscript>
+</div>
+
+<script>
+  import { AGE_UNITS, formatAge, nextUnitIndex } from "../scripts/age.mjs";
+
+  const button = document.getElementById("age-tracker");
+  const value = document.getElementById("age-value");
+  const label = document.getElementById("age-unit");
+  const hint = document.getElementById("age-hint");
+  if (button && value && label && hint) {
+    let unitIndex = 0;
+    function render() {
+      const unit = AGE_UNITS[unitIndex];
+      if (!value || !label || !button) return;
+      value.textContent = formatAge(Date.now(), unit);
+      label.textContent = unit.label;
+      button.title = `Since 9 October 1998, 09:35 (Europe/Brussels). Unit: ${unit.detail}.`;
+    }
+    button.addEventListener("click", () => {
+      unitIndex = nextUnitIndex(unitIndex);
+      render();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) render();
+    });
+    render();
+    button.hidden = false;
+    hint.hidden = false;
+    // No live region: screen readers should not announce every clock tick.
+    setInterval(() => {
+      if (!document.hidden) render();
+    }, 1000);
+  }
+</script>
+
+<style>
+  .age-tracker {
+    margin-bottom: 12px;
+  }
+  button {
+    display: block;
+    max-width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #64317e;
+    font: inherit;
+    text-align: left;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+  }
+  small {
+    display: block;
+    margin-top: 3px;
+    font-size: 10px;
+  }
+</style>
