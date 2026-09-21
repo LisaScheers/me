@@ -84,6 +84,7 @@
         "= /pgp.asc" = {
           alias = "${site}/pgp.asc";
           extraConfig = ''
+            types { application/pgp-keys asc; }
             default_type application/pgp-keys;
             add_header Cache-Control "public, max-age=3600";
           '';
