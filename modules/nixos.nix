@@ -81,6 +81,13 @@
             add_header Cache-Control "public, max-age=3600";
           '';
         };
+        "= /pgp.asc" = {
+          alias = "${site}/pgp.asc";
+          extraConfig = ''
+            default_type application/pgp-keys;
+            add_header Cache-Control "public, max-age=3600";
+          '';
+        };
         "= /api/views" = {
           proxyPass = "http://127.0.0.1:${toString cfg.counterPort}";
           extraConfig = ''

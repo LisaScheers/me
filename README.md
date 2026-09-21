@@ -2,6 +2,10 @@
 
 [bylisa.dev](https://bylisa.dev)
 
+Public OpenPGP certificate: [pgp.asc](https://bylisa.dev/pgp.asc)
+
+Fingerprint: `15E4 98C9 7D78 301A 8CB8 9660 EDB3 7F80 DA8C AD84`.
+
 ## Run locally
 
 From the repository root, with [Nix](https://nixos.org/download/) and
