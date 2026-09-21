@@ -162,6 +162,7 @@ function setWindow(id, expanded) {
     activity: "activity monitor",
     projects: "projects",
     neighbours: "bookmarks",
+    keys: "GPG keys",
   };
   button.setAttribute("aria-label", `${expanded ? "Minimise" : "Restore"} ${names[id]}`);
   button.textContent = expanded ? "_" : "□";
@@ -177,7 +178,7 @@ document.querySelectorAll("[data-open]").forEach((link) => {
 });
 function revealHash() {
   const id = location.hash.slice(1);
-  if (["intro", "activity", "projects", "neighbours"].includes(id)) setWindow(id, true);
+  if (["intro", "activity", "projects", "neighbours", "keys"].includes(id)) setWindow(id, true);
 }
 window.addEventListener("hashchange", revealHash);
 revealHash();

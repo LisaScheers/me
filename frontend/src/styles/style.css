@@ -499,6 +499,15 @@ button:disabled {
   color: #b68dc9;
   text-align: right;
 }
+.keys {
+  grid-column: 1 / -1;
+}
+.key-details {
+  overflow-wrap: anywhere;
+}
+.key-details code {
+  font: inherit;
+}
 .neighbours {
   grid-column: 1 / -1;
   margin-right: 32px;
@@ -762,6 +771,9 @@ pre {
     order: 2;
   }
   .neighbours {
+    order: 4;
+  }
+  .keys {
     order: 3;
   }
   .intro {
