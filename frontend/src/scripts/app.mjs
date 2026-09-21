@@ -163,6 +163,7 @@ function setWindow(id, expanded) {
     projects: "projects",
     neighbours: "bookmarks",
     keys: "GPG keys",
+    community: "community",
   };
   button.setAttribute("aria-label", `${expanded ? "Minimise" : "Restore"} ${names[id]}`);
   button.textContent = expanded ? "_" : "□";
@@ -178,7 +179,8 @@ document.querySelectorAll("[data-open]").forEach((link) => {
 });
 function revealHash() {
   const id = location.hash.slice(1);
-  if (["intro", "activity", "projects", "neighbours", "keys"].includes(id)) setWindow(id, true);
+  if (["intro", "activity", "projects", "neighbours", "keys", "community"].includes(id))
+    setWindow(id, true);
 }
 window.addEventListener("hashchange", revealHash);
 revealHash();

@@ -499,6 +499,7 @@ button:disabled {
   color: #b68dc9;
   text-align: right;
 }
+.community,
 .keys {
   grid-column: 1 / -1;
 }
@@ -770,11 +771,14 @@ pre {
   .projects {
     order: 2;
   }
+  .community {
+    order: 3;
+  }
   .neighbours {
-    order: 4;
+    order: 5;
   }
   .keys {
-    order: 3;
+    order: 4;
   }
   .intro {
     order: 0;
