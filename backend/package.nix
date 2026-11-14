@@ -1,6 +1,8 @@
 {
   lib,
   rustPlatform,
+  pkg-config,
+  sqlite,
 }:
 rustPlatform.buildRustPackage {
   pname = "me-backend";
@@ -10,5 +12,7 @@ rustPlatform.buildRustPackage {
     fileset = lib.fileset.unions [../Cargo.toml ../Cargo.lock ./Cargo.toml ./src ./tests ./migrations];
   };
   cargoLock.lockFile = ../Cargo.lock;
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [sqlite];
   meta.mainProgram = "me-backend";
 }
